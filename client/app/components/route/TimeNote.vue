@@ -1,10 +1,9 @@
 <template>
   <div
     v-if="store.timeNote"
-    class="flex items-center gap-2 rounded-lg border border-accent/20 bg-accent/5 px-4 py-2.5"
+    class="mt-4 rounded-lg border border-accent/15 bg-accent/[0.06] px-3.5 py-2.5 font-mono text-xs leading-relaxed text-text-secondary"
   >
-    <span class="text-accent">&#9201;</span>
-    <span class="font-mono text-xs text-accent">{{ store.timeNote }}</span>
+    ⏱ <strong class="text-text-primary">Time constraint noted:</strong> {{ store.timeNote }}
   </div>
 </template>
 

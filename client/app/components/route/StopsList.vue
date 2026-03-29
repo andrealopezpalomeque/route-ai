@@ -1,21 +1,23 @@
 <template>
-  <div v-if="store.stops.length" class="flex flex-col gap-2">
-    <h2 class="font-display text-xs uppercase tracking-widest text-text-secondary">
-      Your stops
+  <div v-if="store.stops.length" class="flex flex-col gap-2.5">
+    <h2 class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-accent">
+      Extracted Stops
     </h2>
-    <div
-      v-for="(stop, i) in store.stops"
-      :key="i"
-      class="flex items-start gap-3 rounded-lg border border-border bg-surface px-4 py-3"
-      :style="{ animationDelay: `${i * 80}ms` }"
-      :class="['animate-fade-in-up opacity-0 fill-mode-forwards']"
-    >
-      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
-        {{ i + 1 }}
-      </span>
-      <div class="flex flex-col gap-0.5 overflow-hidden">
-        <span class="font-display text-sm text-text-primary">{{ stop.label }}</span>
-        <span class="truncate font-mono text-xs text-text-secondary">{{ stop.address }}</span>
+    <div class="flex flex-col gap-2.5">
+      <div
+        v-for="(stop, i) in store.stops"
+        :key="i"
+        class="flex gap-3 rounded-[10px] border border-border bg-black/30 px-3.5 py-3.5 opacity-0 animate-fade-in-up fill-mode-forwards"
+        :style="{ animationDelay: `${i * 80}ms` }"
+      >
+        <span class="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-accent font-display text-[0.7rem] font-extrabold text-bg">
+          {{ i + 1 }}
+        </span>
+        <div class="flex flex-1 flex-col">
+          <span class="font-display text-[0.9rem] font-semibold text-text-primary">{{ stop.label }}</span>
+          <span class="mt-0.5 font-mono text-[0.72rem] leading-snug text-text-muted">{{ stop.address }}</span>
+          <span class="mt-1 font-mono text-[0.65rem] text-accent">✓ Ready</span>
+        </div>
       </div>
     </div>
   </div>
