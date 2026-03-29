@@ -7,23 +7,12 @@
       id="route-input"
       v-model="store.input"
       :disabled="store.loading"
-      :placeholder="examples[0]"
+      placeholder="I need to go to the pharmacy on Belgrano, then the supermarket on San Juan, and pick up my friend near the plaza. About an hour."
       rows="5"
       class="h-[130px] w-full resize-none rounded-[10px] border border-white/10 bg-black/40 px-4 py-4 font-mono text-[0.85rem] leading-[1.7] text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent/40 disabled:opacity-40"
       @keydown.meta.enter="submit"
       @keydown.ctrl.enter="submit"
     />
-
-    <div class="mt-2 flex flex-wrap gap-2">
-      <button
-        v-for="(_, i) in examples"
-        :key="i"
-        class="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-text-secondary transition-colors hover:border-white/20 hover:text-text-primary"
-        @click="store.input = examples[i]"
-      >
-        Example {{ i + 1 }}
-      </button>
-    </div>
 
     <button
       :disabled="!store.input.trim() || store.loading"
@@ -60,12 +49,6 @@
 <script setup lang="ts">
 const store = useRouteStore()
 const geo = useGeolocation()
-
-const examples = [
-  'I need to pick up my friend at the corner of Broadway and 72nd in Manhattan, then swing by Central Park, then drop everything off at Times Square. I have about an hour.',
-  'Go from home near Brooklyn Bridge to Whole Foods on Columbus Ave, then to the Met Museum, back by 3pm.',
-  'I\'m leaving from Penn Station. I need to hit a pharmacy on 34th St, then visit a friend near Grand Central, then end up at the High Line. Maybe 90 minutes total.',
-]
 
 onMounted(() => {
   geo.requestLocation()
