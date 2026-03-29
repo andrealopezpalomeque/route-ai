@@ -1,26 +1,14 @@
 {
-  "name": "route-ai",
-  "type": "module",
+  "name": "routeai",
   "private": true,
+  "workspaces": ["client", "server"],
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "deploy": "nuxt generate && firebase deploy"
-  },
-  "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.14.0",
-    "@pinia/nuxt": "^0.11.3",
-    "@vite-pwa/nuxt": "^1.1.1",
-    "nuxt": "^4.4.2",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.30",
-    "vue-router": "^5.0.4"
+    "dev:client": "yarn workspace routeai-client dev",
+    "dev:server": "yarn workspace routeai-server dev",
+    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
+    "install:all": "yarn install"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.456",
-    "unplugin-icons": "^23.0.1"
+    "concurrently": "^9.1.2"
   }
 }

@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      geminiApiKey: '',
+      apiBaseUrl: '',
     },
   },
 
