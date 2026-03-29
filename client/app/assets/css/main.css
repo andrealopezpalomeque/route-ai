@@ -34,3 +34,9 @@ body {
     transform: translateY(0);
   }
 }
+
+@layer utilities {
+  .fill-mode-forwards {
+    animation-fill-mode: forwards;
+  }
+}

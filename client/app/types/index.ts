@@ -16,4 +16,5 @@ export interface RouteState {
   status: string
   loading: boolean
   error: string
+  locationContext: string
 }

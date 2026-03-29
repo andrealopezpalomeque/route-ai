@@ -10,10 +10,37 @@ export const useRouteStore = defineStore('route', {
     status: '',
     loading: false,
     error: '',
+    locationContext: '',
   }),
   actions: {
-    async parseRoute() {
-      // TODO: integrate with useRouteParser composable
+    async parseRoute(coords?: { lat: number; lng: number } | null, locationCtx?: string) {
+      if (!this.input.trim()) return
+
+      this.loading = true
+      this.error = ''
+      this.status = 'Parsing your route...'
+      this.stops = []
+      this.timeNote = ''
+      this.mapsUrl = ''
+      this.locationContext = locationCtx ?? ''
+
+      try {
+        const { parse } = useRouteParser()
+        const result = await parse(this.input, this.locationContext)
+
+        this.stops = result.stops
+        this.timeNote = result.timeNote
+
+        const { buildUrl } = useMapsUrl()
+        this.mapsUrl = buildUrl(result.stops, coords)
+
+        this.status = `${result.stops.length} stop${result.stops.length === 1 ? '' : 's'} found`
+      } catch (e) {
+        this.error = e instanceof Error ? e.message : 'Something went wrong'
+        this.status = ''
+      } finally {
+        this.loading = false
+      }
     },
     reset() {
       this.input = ''
@@ -23,6 +50,7 @@ export const useRouteStore = defineStore('route', {
       this.status = ''
       this.loading = false
       this.error = ''
+      this.locationContext = ''
     },
   },
 })

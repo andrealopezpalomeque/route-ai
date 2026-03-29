@@ -19,12 +19,26 @@ export default {
         'accent-maps': '#1a73e8',
       },
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
+        display: ['Syne', 'sans-serif'],
         mono: ['"Space Mono"', 'monospace'],
         body: ['"DM Sans"', 'sans-serif'],
       },
       maxWidth: {
         app: '640px',
+      },
+      animation: {
+        'pulse-accent': 'pulse-accent 2s ease-in-out infinite',
+        'fade-in-up': 'fade-in-up 0.3s ease-out',
+      },
+      keyframes: {
+        'pulse-accent': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.5' },
+        },
+        'fade-in-up': {
+          from: { opacity: '0', transform: 'translateY(8px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
     },
   },

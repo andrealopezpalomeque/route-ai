@@ -1,4 +1,4 @@
-# RouteAI — CLAUDE.md
+# Root AI — CLAUDE.md
 
 ## Project Overview
 
@@ -6,65 +6,102 @@ A natural language route planner PWA. The user types or speaks a casual descript
 
 **Core value**: The AI acts as a translator between human language and Google Maps input. Google Maps never has to understand natural language — it just receives clean, structured addresses.
 
-**Live URL**: TBD (Firebase Hosting)
-**Repository**: TBD
-**Deployment**: Firebase Hosting (static generation via `yarn generate`)
+**Live URL**: TBD
+**Repository**: TBD (github.com/andrealopezpalomeque/root-ai)
+**Client deployment**: Firebase Hosting (`yarn generate` + `firebase deploy`)
+**Server deployment**: Render (Express + Node)
+
+---
+
+## Monorepo Structure
+
+```
+root-ai/
+├── CLAUDE.md
+├── package.json               ← root workspace (yarn workspaces)
+├── client/                    ← Nuxt 4 PWA
+│   ├── app/
+│   │   ├── app.vue
+│   │   ├── assets/css/main.css
+│   │   ├── components/
+│   │   │   ├── route/
+│   │   │   │   ├── RouteInput.vue
+│   │   │   │   ├── StopsList.vue
+│   │   │   │   ├── TimeNote.vue
+│   │   │   │   └── MapsButton.vue
+│   │   │   └── ui/
+│   │   │       ├── Button.vue
+│   │   │       ├── Card.vue
+│   │   │       └── StatusIndicator.vue
+│   │   ├── composables/
+│   │   │   ├── useRouteParser.ts   ← POSTs to /api/parse-route on Express
+│   │   │   └── useMapsUrl.ts       ← builds Google Maps URL from stops[]
+│   │   ├── pages/
+│   │   │   └── index.vue
+│   │   ├── stores/
+│   │   │   └── route.ts            ← Pinia store
+│   │   └── types/
+│   │       └── index.ts
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   ├── icon-192.png
+│   │   ├── icon-512.png
+│   │   └── robots.txt
+│   ├── nuxt.config.ts
+│   ├── tailwind.config.js
+│   ├── tsconfig.json
+│   ├── firebase.json
+│   ├── .env.example            ← NUXT_PUBLIC_API_BASE_URL
+│   └── package.json            ← name: routeai-client
+└── server/                    ← Express + TypeScript API
+    ├── src/
+    │   ├── index.ts            ← Express entry, CORS, port
+    │   ├── routes/
+    │   │   └── parseRoute.ts   ← POST /api/parse-route → Gemini → stops[]
+    │   └── middleware/
+    │       └── errorHandler.ts
+    ├── tsconfig.json
+    ├── .env.example            ← GEMINI_API_KEY, PORT, CLIENT_URL
+    └── package.json            ← name: routeai-server
+```
 
 ---
 
 ## Tech Stack
 
-- **Framework**: Nuxt 4 (Vue 3) — static site generation
+### Client
+- **Framework**: Nuxt 4 (Vue 3)
 - **Package Manager**: yarn (NEVER npm)
-- **Styling**: Tailwind CSS exclusively (NO custom CSS except variables and keyframes)
-- **TypeScript**: Strict typing for all data structures
+- **Styling**: Tailwind CSS exclusively
+- **TypeScript**: strict, no `any`
 - **Icons**: Iconify (`~icons/pack-name/icon-name`)
 - **State**: Pinia
-- **AI**: Gemini API (swap-ready for Claude API later — see AI Integration section)
-- **Maps**: Google Maps URL scheme (no Maps SDK needed)
-- **Deployment**: Firebase Hosting via `yarn generate` + `firebase deploy`
-- **PWA**: @vite-pwa/nuxt for installability on mobile
+- **Maps**: Google Maps URL scheme — no SDK needed
+- **PWA**: @vite-pwa/nuxt
+
+### Server
+- **Runtime**: Node.js
+- **Framework**: Express + TypeScript
+- **AI SDK**: @google/generative-ai (Gemini)
+- **Other**: cors, dotenv
+- **Dev**: ts-node, nodemon
 
 ---
 
-## Folder Structure
+## Root package.json
 
-```
-routeai/
-├── CLAUDE.md
-├── app.vue
-├── assets/
-│   └── css/
-│       └── main.css           ← CSS variables, global resets, keyframes
-├── components/
-│   ├── route/
-│   │   ├── RouteInput.vue     ← Natural language textarea + submit
-│   │   ├── StopsList.vue      ← Extracted stops display
-│   │   ├── TimeNote.vue       ← Time constraint callout
-│   │   └── MapsButton.vue     ← "Open in Google Maps" CTA
-│   └── ui/
-│       ├── Button.vue
-│       ├── Card.vue
-│       └── StatusIndicator.vue
-├── composables/
-│   ├── useRouteParser.ts      ← Calls Gemini, returns structured stops
-│   └── useMapsUrl.ts          ← Builds Google Maps URL from stops array
-├── pages/
-│   └── index.vue
-├── public/
-│   ├── favicon.ico
-│   ├── icon-192.png           ← PWA icons
-│   ├── icon-512.png
-│   └── robots.txt
-├── stores/
-│   └── route.ts               ← Pinia store: input, stops, status, mapsUrl
-├── types/
-│   └── index.ts               ← Route, Stop, ParsedRoute types
-├── nuxt.config.ts
-├── tailwind.config.js
-├── tsconfig.json
-├── firebase.json
-└── package.json
+```json
+{
+  "name": "root-ai",
+  "private": true,
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev:client": "yarn workspace routeai-client dev",
+    "dev:server": "yarn workspace routeai-server dev",
+    "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
+    "install:all": "yarn install"
+  }
+}
 ```
 
 ---
@@ -72,16 +109,16 @@ routeai/
 ## TypeScript Types
 
 ```typescript
-// types/index.ts
+// client/app/types/index.ts
 
 export interface Stop {
   label: string       // Human-friendly name: "Central Park"
-  address: string     // Google Maps-ready string: "Central Park, New York, NY"
+  address: string     // Google Maps-ready: "Central Park, New York, NY"
 }
 
 export interface ParsedRoute {
   stops: Stop[]
-  timeNote: string    // e.g. "about an hour" or "" if none mentioned
+  timeNote: string    // "about an hour" or ""
 }
 
 export interface RouteState {
@@ -97,58 +134,86 @@ export interface RouteState {
 
 ---
 
+## Data Flow
+
+```
+User types natural language
+        ↓
+useRouteParser.ts (client)
+  POST ${API_BASE_URL}/api/parse-route
+  body: { input: string }
+        ↓
+server/src/routes/parseRoute.ts
+  calls Gemini API with system prompt
+  returns ParsedRoute JSON
+        ↓
+Pinia store (route.ts)
+  stores stops[], timeNote
+        ↓
+useMapsUrl.ts
+  builds https://www.google.com/maps/dir/Stop1/Stop2/Stop3
+        ↓
+MapsButton.vue
+  window.open(mapsUrl)
+        ↓
+Google Maps opens with pre-filled stops
+```
+
+---
+
 ## AI Integration
 
-### Current: Gemini API
+### Server route: POST /api/parse-route
 ```typescript
-// composables/useRouteParser.ts
-const response = await fetch(
-  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }]
-    })
-  }
-)
+// server/src/routes/parseRoute.ts
+import { GoogleGenerativeAI } from '@google/generative-ai'
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 ```
 
-### Future: Claude API (drop-in swap)
-```typescript
-const response = await fetch('https://api.anthropic.com/v1/messages', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'x-api-key': apiKey,
-    'anthropic-version': '2023-06-01'
-  },
-  body: JSON.stringify({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 1000,
-    messages: [{ role: 'user', content: prompt }]
-  })
-})
-```
-
-### System Prompt (same for both)
+### System Prompt
 ```
 You are a route extraction assistant. The user describes a trip in natural language.
-Extract an ordered list of stops in the most logical order to minimize backtracking, plus any time constraint.
+Extract an ordered list of stops in the most logical order to minimize backtracking,
+plus any time constraint mentioned.
 
 Respond ONLY with valid JSON, no markdown, no explanation:
 {
   "stops": [
     {
       "label": "short human-friendly name, e.g. Central Park",
-      "address": "full address or place name Google Maps can understand, e.g. Central Park, New York, NY"
+      "address": "full address or place name Google Maps can understand"
     }
   ],
   "timeNote": "any time constraint mentioned, or empty string"
 }
 
-Make addresses specific enough for Google Maps to resolve. Include city/state if mentioned or implied.
-Do not include the user's home/origin unless explicitly named with an address.
+Make addresses specific enough for Google Maps to resolve.
+Include city/state if mentioned or implied.
+Do not include the user's home/origin unless explicitly named.
+```
+
+### Future: Claude API swap
+When switching from Gemini to Claude, only `server/src/routes/parseRoute.ts` changes.
+The system prompt, response shape, and everything else stays identical.
+
+```typescript
+// Replace @google/generative-ai with direct fetch:
+const response = await fetch('https://api.anthropic.com/v1/messages', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': process.env.CLAUDE_API_KEY!,
+    'anthropic-version': '2023-06-01'
+  },
+  body: JSON.stringify({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1000,
+    system: SYSTEM_PROMPT,
+    messages: [{ role: 'user', content: input }]
+  })
+})
 ```
 
 ---
@@ -156,7 +221,7 @@ Do not include the user's home/origin unless explicitly named with an address.
 ## Google Maps URL Builder
 
 ```typescript
-// composables/useMapsUrl.ts
+// client/app/composables/useMapsUrl.ts
 export const useMapsUrl = () => {
   const buildUrl = (stops: Stop[]): string => {
     if (stops.length === 0) return ''
@@ -169,18 +234,36 @@ export const useMapsUrl = () => {
 }
 ```
 
-No geocoding needed. Google Maps resolves text addresses natively.
+No geocoding. Google Maps resolves text addresses natively.
+
+---
+
+## Environment Variables
+
+### client/.env
+```bash
+NUXT_PUBLIC_API_BASE_URL=http://localhost:3001
+# Production: https://root-ai-server.onrender.com
+```
+
+### server/.env
+```bash
+GEMINI_API_KEY=your_key_here
+PORT=3001
+CLIENT_URL=http://localhost:3000
+# Production CLIENT_URL: https://root-ai.web.app
+```
 
 ---
 
 ## PWA Configuration
 
 ```typescript
-// nuxt.config.ts — PWA module config
+// client/nuxt.config.ts
 pwa: {
   manifest: {
-    name: 'RouteAI',
-    short_name: 'RouteAI',
+    name: 'Root AI',
+    short_name: 'Root AI',
     description: 'Plan routes with natural language',
     theme_color: '#0a0a0f',
     background_color: '#0a0a0f',
@@ -190,31 +273,15 @@ pwa: {
       { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }
     ]
   },
-  workbox: {
-    navigateFallback: '/'
-  }
+  workbox: { navigateFallback: '/' }
 }
 ```
 
 ---
 
-## Environment Variables
-
-```bash
-# .env (never commit this)
-NUXT_PUBLIC_GEMINI_API_KEY=your_key_here
-
-# When switching to Claude:
-# NUXT_PUBLIC_CLAUDE_API_KEY=your_key_here
-```
-
-Access in code via `useRuntimeConfig().public.geminiApiKey`
-
----
-
 ## Design Direction
 
-Dark, utilitarian, confident. This is a tool — it should feel fast and focused. Not a marketing page, not a dashboard. Think terminal meets maps app.
+Dark, utilitarian, confident. This is a tool — fast and focused. Terminal meets maps app.
 
 ### Color Palette
 ```css
@@ -225,123 +292,84 @@ Dark, utilitarian, confident. This is a tool — it should feel fast and focused
   --text-primary: #ffffff;
   --text-secondary: #888888;
   --text-muted: #444444;
-  --accent: #00ffb2;          /* electric green — primary CTA */
-  --accent-maps: #1a73e8;     /* Google blue — Maps button only */
+  --accent: #00ffb2;        /* electric green — primary CTA */
+  --accent-maps: #1a73e8;   /* Google blue — Maps button only */
 }
 ```
 
 ### Typography
-- **Display**: `Space Grotesk` or `Syne` — geometric, technical
-- **Mono / UI**: `Space Mono` — for addresses, status messages, stop items
-- **Body**: `DM Sans` — inherited from Andrea's standard stack
+- **Display / Labels**: `Syne` — geometric, technical
+- **Mono / Addresses / Status**: `Space Mono`
+- **Body**: `DM Sans`
 
 ### Key UI Rules
-- Single-column layout, max-width 640px, centered
+- Single-column, max-width 640px, centered
 - Mobile-first — this app lives on phones
-- Accent color (`--accent`) for active state, pulse animations, stop numbers
-- Maps button always `--accent-maps` (Google blue for instant recognition)
-- Status indicator: pulsing dot + monospace text
-- Stops list: numbered cards with fade-in stagger
-
----
-
-## Pinia Store
-
-```typescript
-// stores/route.ts
-export const useRouteStore = defineStore('route', {
-  state: (): RouteState => ({
-    input: '',
-    stops: [],
-    timeNote: '',
-    mapsUrl: '',
-    status: '',
-    loading: false,
-    error: ''
-  }),
-  actions: {
-    async parseRoute() { ... },
-    reset() { ... }
-  }
-})
-```
-
----
-
-## Component Conventions
-
-- One component per UI concern
-- Props typed with TypeScript interfaces from `~/types`
-- No `<style>` blocks — Tailwind only
-- Composables handle all async logic — components stay lean
-- `useRouteParser` owns the AI call
-- `useMapsUrl` owns the URL construction
-- Store owns the state
-
----
-
-## Code Standards
-
-- **Language**: Code and comments in English
-- **Package manager**: yarn always (NEVER npm)
-- **TypeScript**: strict typing, no `any`
-- **Styling**: Tailwind CSS only
-- **Icons**: Iconify only
-- **No UI libraries**: No Vuetify, Quasar, etc.
-- **Error handling**: always wrap API calls in try/catch with user-facing messages
-- **Loading states**: always show status during async operations
+- Accent (`--accent`) for CTAs, stop numbers, pulse animations
+- Maps button always `--accent-maps` for instant Google recognition
+- Stops list: numbered cards, fade-in stagger on appear
 
 ---
 
 ## Deployment
 
+### Client → Firebase Hosting
 ```bash
-# Generate static site
+cd client
 yarn generate
-
-# Deploy to Firebase Hosting
 firebase deploy
-
-# Or combined:
-yarn deploy
 ```
+
+### Server → Render
+- Connect GitHub repo on Render
+- Root directory: `server`
+- Build command: `yarn build`
+- Start command: `node dist/index.js`
+- Add env vars in Render dashboard: `GEMINI_API_KEY`, `PORT`, `CLIENT_URL`
 
 ---
 
 ## Phases
 
 ### Phase 1 — Core (current)
-- [ ] Project skeleton from this CLAUDE.md
-- [ ] RouteInput component
-- [ ] Gemini API integration via `useRouteParser`
-- [ ] Google Maps URL builder via `useMapsUrl`
-- [ ] StopsList display
-- [ ] Firebase deploy + share link
+- [x] Monorepo skeleton (client + server)
+- [x] Express server with `/api/parse-route` placeholder
+- [x] Nuxt 4 client with Pinia store and composables placeholder
+- [x] Implement real Gemini call in server
+- [x] Build UI components (RouteInput, StopsList, MapsButton)
+- [x] End-to-end test locally
+- [x] Geolocation: current position as Maps origin
+- [x] Geolocation: location context sent to Gemini for accurate address resolution
+- [ ] Deploy client to Firebase
+- [ ] Deploy server to Render
+- [ ] Share link with first users
 
-### Phase 2 — PWA
-- [ ] @vite-pwa/nuxt setup
-- [ ] App icons (192 + 512)
+### Phase 2 — PWA Polish
+- [ ] PWA icons (192 + 512)
 - [ ] Offline fallback page
-- [ ] "Add to Home Screen" prompt
+- [ ] Test "Add to Home Screen" on iOS + Android
 
 ### Phase 3 — Voice Input
-- [ ] Web Speech API integration
-- [ ] Mic button in RouteInput
-- [ ] Transcript fed into existing parse flow
+- [ ] Web Speech API in RouteInput
+- [ ] Mic button, transcript feeds existing parse flow
 
 ### Phase 4 — History (optional)
-- [ ] Firebase Auth (Google)
-- [ ] Firestore: save past routes per user
+- [ ] Firebase Auth (Google sign-in)
+- [ ] Firestore: save routes per user
 - [ ] History page
+
+### Phase 5 — AI Upgrade
+- [ ] Swap Gemini for Claude API in server/src/routes/parseRoute.ts
+- [ ] Update env vars
 
 ---
 
 ## What to NEVER Do
 
 - Don't use npm — always yarn
-- Don't add a backend server — this is a pure frontend PWA
+- Don't call Gemini or Claude from the client — always go through the Express server
+- Don't expose API keys in the client — they live in server/.env only
 - Don't geocode manually — Google Maps resolves text addresses natively
 - Don't add heavy animation libraries
-- Don't store API keys in the codebase — always `.env`
 - Don't add a Maps SDK — the URL scheme is enough
 - Don't over-engineer Phase 1 — ship the core loop first
