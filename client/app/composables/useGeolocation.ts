@@ -16,6 +16,7 @@ export const useGeolocation = () => {
   const locationContext = ref('')
   const loading = ref(false)
   const error = ref('')
+  const requested = ref(false)
 
   async function reverseGeocode(lat: number, lng: number): Promise<string> {
     try {
@@ -46,6 +47,7 @@ export const useGeolocation = () => {
 
     loading.value = true
     error.value = ''
+    requested.value = true
 
     try {
       const position = await new Promise<GeolocationPosition>((resolve, reject) => {
@@ -78,5 +80,5 @@ export const useGeolocation = () => {
     }
   }
 
-  return { coords, locationContext, loading, error, requestLocation }
+  return { coords, locationContext, loading, error, requested, requestLocation }
 }

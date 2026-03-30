@@ -39,6 +39,14 @@
         <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
         <span class="text-text-secondary">{{ geo.locationContext.value }}</span>
       </template>
+      <template v-else-if="!geo.requested.value">
+        <button
+          class="text-text-muted transition-colors hover:text-accent"
+          @click="geo.requestLocation()"
+        >
+          Enable location for better results
+        </button>
+      </template>
       <template v-else-if="geo.error.value">
         <span class="text-text-muted">⚠ Location unavailable — results may be less accurate</span>
       </template>
@@ -49,10 +57,6 @@
 <script setup lang="ts">
 const store = useRouteStore()
 const geo = useGeolocation()
-
-onMounted(() => {
-  geo.requestLocation()
-})
 
 function submit() {
   if (!store.input.trim() || store.loading) return
