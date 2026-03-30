@@ -17,4 +17,5 @@ export interface RouteState {
   loading: boolean
   error: string
   locationContext: string
+  isEditing: boolean
 }

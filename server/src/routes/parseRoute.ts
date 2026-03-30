@@ -22,7 +22,13 @@ Respond ONLY with valid JSON, no markdown, no explanation:
 }
 
 Make addresses specific enough for Google Maps to resolve. Include city/state if mentioned or implied.
-Do not include the user's home/origin unless explicitly named with an address.`
+Do not include the user's home/origin unless explicitly named with an address.
+
+Important rules for place names:
+- Treat any proper nouns, store names, venue names, and local business names as-is — never translate them into English or generic descriptions. For example 'Supermercado Depot' stays 'Supermercado Depot', not 'supermarket' or 'warehouse'.
+- If a place name is ambiguous or local, append the city and country context to make it Google Maps searchable, but keep the original name. Example: 'Supermercado Depot, Corrientes, Argentina'.
+- Capitalized words that are not common nouns should be treated as proper names.
+- Club names, shopping centers, stores, and venues should always keep their original name exactly as the user wrote them.`
 
 interface Stop {
   label: string

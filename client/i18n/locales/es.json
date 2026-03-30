@@ -13,7 +13,7 @@
   "howItWorks": {
     "label": "Cómo funciona",
     "step1Title": "Escribí naturalmente",
-    "step1Desc": "\"Necesito ir a la farmacia de Belgrano, después pasar a buscar a mi amiga cerca de la plaza\"",
+    "step1Desc": "\"Necesito ir a la farmacia de Belgrano y Junín, después pasar a buscar a mi amiga en Plaza Cabral\"",
     "step2Title": "La IA extrae y ordena",
     "step2Desc": "Las paradas se identifican, las direcciones se resuelven y la ruta se optimiza para evitar idas y vueltas.",
     "step3Title": "Google Maps se abre",
@@ -34,7 +34,7 @@
   "app": {
     "subtitle": "lenguaje natural → Google Maps",
     "label": "Describí tu recorrido",
-    "placeholder": "Necesito ir a la farmacia de Belgrano, después al súper de San Juan, y pasar a buscar a mi amiga cerca de la plaza. Como una hora.",
+    "placeholder": "Necesito ir a la farmacia de Belgrano y Junín, después a Supermercado Depot en San Juan y Mendoza, y pasar a buscar a mi amiga en Plaza Cabral. Como una hora.",
     "submit": "Planear mi ruta →",
     "submitting": "Procesando...",
     "statusParsing": "Analizando tu ruta...",
@@ -50,7 +50,11 @@
     "listening": "Escuchando...",
     "voiceNotSupported": "Voz no disponible en este navegador",
     "voiceError": "No te escuché — intentá de nuevo",
-    "back": "Volver"
+    "back": "Volver",
+    "retryHint": "¿No es lo que esperabas? Editá y reintentá →",
+    "editTip": "Tip: usá el nombre completo para lugares locales — ej. 'Supermercado Depot Corrientes'",
+    "firstUseTip": "Tip: nombrá los lugares con claridad — 'Supermercado Depot Corrientes' funciona mejor que solo 'el depot'",
+    "clear": "Limpiar"
   },
   "footer": {
     "builtBy": "Hecho por",

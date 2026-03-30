@@ -34,22 +34,21 @@ export function useVoiceInput() {
     if (SpeechRecognitionCtor) {
       recognition = new SpeechRecognitionCtor() as SpeechRecognitionLike
       recognition.interimResults = true
-      recognition.continuous = false
+      recognition.continuous = true
       recognition.maxAlternatives = 1
 
       recognition.onresult = (event) => {
+        let final = ''
         let interim = ''
         for (let i = 0; i < event.results.length; i++) {
           const result = event.results[i]!
           if (result.isFinal) {
-            transcript.value = result[0].transcript
+            final += result[0].transcript
           } else {
             interim += result[0].transcript
           }
         }
-        if (interim) {
-          transcript.value = interim
-        }
+        transcript.value = (final + interim).trim()
       }
 
       recognition.onerror = (event) => {
@@ -62,7 +61,13 @@ export function useVoiceInput() {
       }
 
       recognition.onend = () => {
-        isListening.value = false
+        if (isListening.value && recognition) {
+          try {
+            recognition.start()
+          } catch {
+            isListening.value = false
+          }
+        }
       }
     }
   }

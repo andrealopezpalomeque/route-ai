@@ -6,6 +6,7 @@
     <div class="relative">
       <textarea
         id="route-input"
+        ref="textareaRef"
         v-model="store.input"
         :disabled="store.loading"
         :placeholder="$t('app.placeholder')"
@@ -28,6 +29,25 @@
           <path d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 159.63V240a8 8 0 0 1-16 0v-16.37A80.11 80.11 0 0 1 48 144a8 8 0 0 1 16 0 64 64 0 0 0 128 0 8 8 0 0 1 16 0 80.11 80.11 0 0 1-72 79.63Z" />
         </svg>
       </button>
+    </div>
+
+    <div v-if="store.input.trim() && !store.loading" class="mt-2 flex justify-end">
+      <button
+        class="font-mono text-[11px] text-text-muted transition-colors hover:text-accent"
+        @click="store.reset()"
+      >
+        {{ $t('app.clear') }}
+      </button>
+    </div>
+
+    <div v-if="store.isEditing" class="mt-2 flex items-center gap-1.5">
+      <span class="font-mono text-[11px] text-accent">✦</span>
+      <span class="font-mono text-[11px] text-text-muted">{{ $t('app.editTip') }}</span>
+    </div>
+
+    <div v-if="showFirstUseTip" class="mt-2 flex items-center gap-1.5">
+      <span class="font-mono text-[11px] text-accent">✦</span>
+      <span class="font-mono text-[11px] text-text-muted">{{ $t('app.firstUseTip') }}</span>
     </div>
 
     <div v-if="voice.isListening.value" class="mt-2 flex items-center gap-2">
@@ -90,7 +110,15 @@ const store = useRouteStore()
 const geo = useGeolocation()
 const voice = useVoiceInput()
 
-let lastTranscript = ''
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+const showFirstUseTip = ref(false)
+
+onMounted(() => {
+  if (import.meta.client) {
+    showFirstUseTip.value = !localStorage.getItem('routeai-tip-seen')
+    geo.checkExistingPermission()
+  }
+})
 
 watch(() => voice.transcript.value, (val) => {
   if (val) {
@@ -98,10 +126,11 @@ watch(() => voice.transcript.value, (val) => {
   }
 })
 
-watch(() => voice.isListening.value, (listening, wasListening) => {
-  if (wasListening && !listening && store.input.trim() && store.input !== lastTranscript) {
-    lastTranscript = store.input
-    submit()
+watch(() => store.isEditing, (editing) => {
+  if (editing) {
+    nextTick(() => {
+      textareaRef.value?.focus()
+    })
   }
 })
 
@@ -115,6 +144,10 @@ function toggleVoice() {
 
 function submit() {
   if (!store.input.trim() || store.loading) return
+  if (showFirstUseTip.value) {
+    showFirstUseTip.value = false
+    localStorage.setItem('routeai-tip-seen', '1')
+  }
   store.parseRoute(geo.coords.value, geo.locationContext.value)
 }
 </script>

@@ -20,6 +20,12 @@
         </div>
       </div>
     </div>
+    <button
+      class="mt-1 self-start font-body text-[14px] text-text-muted transition-colors hover:underline hover:text-text-secondary"
+      @click="store.retryEdit()"
+    >
+      {{ $t('app.retryHint') }}
+    </button>
   </div>
 </template>
 

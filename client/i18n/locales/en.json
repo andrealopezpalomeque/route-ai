@@ -13,7 +13,7 @@
   "howItWorks": {
     "label": "How it works",
     "step1Title": "Type naturally",
-    "step1Desc": "\"I need to go to the pharmacy on Belgrano, then pick up my friend near the plaza\"",
+    "step1Desc": "\"I need to go to the pharmacy on Belgrano and Junín, then pick up my friend at Plaza Cabral\"",
     "step2Title": "AI extracts & orders",
     "step2Desc": "Stops are identified, addresses resolved, and the route is optimized to minimize backtracking.",
     "step3Title": "Google Maps opens",
@@ -34,7 +34,7 @@
   "app": {
     "subtitle": "natural language → Google Maps",
     "label": "Describe your trip",
-    "placeholder": "I need to go to the pharmacy on Belgrano, then the supermarket on San Juan, and pick up my friend near the plaza. About an hour.",
+    "placeholder": "I need to go to the pharmacy on Belgrano and Junín, then Supermercado Depot on San Juan and Mendoza, and pick up my friend at Plaza Cabral. About an hour.",
     "submit": "Plan My Route →",
     "submitting": "Processing...",
     "statusParsing": "Parsing your route...",
@@ -50,7 +50,11 @@
     "listening": "Listening...",
     "voiceNotSupported": "Voice not supported on this browser",
     "voiceError": "Could not hear you — try again",
-    "back": "Back"
+    "back": "Back",
+    "retryHint": "Not what you expected? Edit and retry →",
+    "editTip": "Tip: for local places, use the full name — e.g. 'Supermercado Depot Corrientes'",
+    "firstUseTip": "Tip: name local places clearly — 'Supermercado Depot Corrientes' works better than just 'el depot'",
+    "clear": "Clear"
   },
   "footer": {
     "builtBy": "Built by",

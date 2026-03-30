@@ -197,6 +197,8 @@ Do not include the user's home/origin unless explicitly named.
 
 **Multilingual support**: Gemini prompt supports multilingual input — label returned in the user's language, address always in a Google Maps-compatible format.
 
+**Proper noun preservation**: Gemini prompt preserves proper nouns and local place names (store names, venues, clubs) exactly as the user wrote them — never translates or genericizes them.
+
 ### Future: Claude API swap
 When switching from Gemini to Claude, only `server/src/routes/parseRoute.ts` changes.
 The system prompt, response shape, and everything else stays identical.
@@ -311,6 +313,7 @@ Dark, utilitarian, confident. This is a tool — fast and focused. Terminal meet
 - Accent (`--accent`) for CTAs, stop numbers, pulse animations
 - Maps button always `--accent-maps` for instant Google recognition
 - Stops list: numbered cards, fade-in stagger on appear
+- Retry flow: user can edit and resubmit if AI result is inaccurate — keeps original input, refocuses textarea
 
 ---
 

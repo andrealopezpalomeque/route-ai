@@ -18,6 +18,20 @@ export const useGeolocation = () => {
   const error = ref('')
   const requested = ref(false)
 
+  async function checkExistingPermission(): Promise<void> {
+    if (!import.meta.client) return
+    if (!navigator.permissions) return
+
+    try {
+      const status = await navigator.permissions.query({ name: 'geolocation' })
+      if (status.state === 'granted') {
+        await requestLocation()
+      }
+    } catch {
+      // Permissions API not supported — user will use the button
+    }
+  }
+
   async function reverseGeocode(lat: number, lng: number): Promise<string> {
     try {
       const response = await fetch(
@@ -80,5 +94,5 @@ export const useGeolocation = () => {
     }
   }
 
-  return { coords, locationContext, loading, error, requested, requestLocation }
+  return { coords, locationContext, loading, error, requested, requestLocation, checkExistingPermission }
 }

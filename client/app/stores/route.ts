@@ -11,6 +11,7 @@ export const useRouteStore = defineStore('route', {
     loading: false,
     error: '',
     locationContext: '',
+    isEditing: false,
   }),
   actions: {
     async parseRoute(coords?: { lat: number; lng: number } | null, locationCtx?: string) {
@@ -22,6 +23,7 @@ export const useRouteStore = defineStore('route', {
       this.stops = []
       this.timeNote = ''
       this.mapsUrl = ''
+      this.isEditing = false
       this.locationContext = locationCtx ?? ''
 
       try {
@@ -42,6 +44,14 @@ export const useRouteStore = defineStore('route', {
         this.loading = false
       }
     },
+    retryEdit() {
+      this.isEditing = true
+      this.stops = []
+      this.mapsUrl = ''
+      this.timeNote = ''
+      this.error = ''
+      this.status = ''
+    },
     reset() {
       this.input = ''
       this.stops = []
@@ -51,6 +61,7 @@ export const useRouteStore = defineStore('route', {
       this.loading = false
       this.error = ''
       this.locationContext = ''
+      this.isEditing = false
     },
   },
 })
