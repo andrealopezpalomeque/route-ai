@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG Image — Route AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0f;
+    margin: 0;
+    padding: 0;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+  }
+  .og-frame {
+    width: 1200px;
+    height: 630px;
+    position: relative;
+    overflow: hidden;
+    background: #0a0a0f;
+  }
+
+  /* Atmospheric gradients */
+  .og-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 15% 60%, rgba(0,255,178,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 20%, rgba(0,150,255,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 40% at 50% 100%, rgba(0,255,178,0.04) 0%, transparent 60%);
+    z-index: 1;
+  }
+
+  /* Subtle grid */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
+
+  /* Noise texture */
+  .noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    height: 100%;
+    padding: 64px 72px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  /* Logo */
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: #00ffb2; }
+
+  /* Headline */
+  .headline {
+    font-family: 'Syne', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #fff;
+    max-width: 520px;
+  }
+  .headline .accent { color: #00ffb2; }
+
+  /* Subtext */
+  .subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #888;
+    max-width: 420px;
+  }
+
+  /* URL pill */
+  .url-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 0.02em;
+    width: fit-content;
+  }
+  .url-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00ffb2;
+    box-shadow: 0 0 12px rgba(0,255,178,0.6);
+  }
+
+  /* Right side: route visualization */
+  .right {
+    width: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .route-vis {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stop-node {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    padding: 12px 0;
+  }
+
+  .stop-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .stop-dot.active {
+    background: #00ffb2;
+    color: #0a0a0f;
+    box-shadow: 0 0 24px rgba(0,255,178,0.3);
+  }
+  .stop-dot.inactive {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #555;
+  }
+
+  .stop-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stop-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .stop-address {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.01em;
+  }
+
+  /* Connector lines */
+  .connector {
+    position: absolute;
+    left: 17px;
+    top: 48px;
+    width: 2px;
+    height: 24px;
+    z-index: 1;
+  }
+  .connector.active-line {
+    background: linear-gradient(to bottom, #00ffb2, rgba(0,255,178,0.2));
+  }
+  .connector.inactive-line {
+    background: rgba(255,255,255,0.06);
+    border-left: 2px dashed rgba(255,255,255,0.08);
+    width: 0;
+  }
+
+  /* Decorative route path line (behind everything) */
+  .route-path {
+    position: absolute;
+    right: -40px;
+    top: 10%;
+    width: 200px;
+    height: 80%;
+    z-index: 0;
+    opacity: 0.06;
+  }
+
+  /* Corner badge */
+  .badge {
+    position: absolute;
+    top: 48px;
+    right: 56px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #444;
+    z-index: 10;
+  }
+
+  /* Bottom border accent */
+  .bottom-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ffb2 30%, #00ffb2 70%, transparent);
+    opacity: 0.6;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<div class="og-frame">
+  <div class="grid-bg"></div>
+  <div class="noise"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="logo">route<span>AI</span></div>
+      <h1 class="headline">
+        Say where.<br><span class="accent">Go there.</span>
+      </h1>
+      <p class="subtext">
+        Plan multi-stop routes with natural language. AI extracts your stops — Google Maps does the rest.
+      </p>
+      <div class="url-pill">
+        <span class="dot"></span>
+        routeai.tech
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="route-vis">
+        <div class="stop-node">
+          <div class="stop-dot active">1</div>
+          <div class="stop-info">
+            <span class="stop-label">Coffee Shop</span>
+            <span class="stop-address">Blue Bottle, SoHo</span>
+          </div>
+          <div class="connector active-line"></div>
+        </div>
+        <div class="stop-node">
+          <div class="stop-dot active">2</div>
+          <div class="stop-info">
+            <span class="stop-label">Dentist</span>
+            <span class="stop-address">123 Broadway, NYC</span>
+          </div>
+          <div class="connector active-line"></div>
+        </div>
+        <div class="stop-node">
+          <div class="stop-dot active">3</div>
+          <div class="stop-info">
+            <span class="stop-label">Grocery Store</span>
+            <span class="stop-address">Trader Joe's, Union Sq</span>
+          </div>
+          <div class="connector inactive-line"></div>
+        </div>
+        <div class="stop-node">
+          <div class="stop-dot inactive">4</div>
+          <div class="stop-info">
+            <span class="stop-label" style="color: #555;">Pick up kids</span>
+            <span class="stop-address">PS 234, TriBeCa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="badge">AI-powered route planning</span>
+  <div class="bottom-accent"></div>
+</div>
+
+</body>
+</html>

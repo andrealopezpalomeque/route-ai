@@ -14,6 +14,7 @@ app.use(cors({
   origin: [
     clientUrl,
     'http://localhost:3000',
+    'https://routeai.tech',
     'https://route-ai-4cf0b.web.app',
     'https://route-ai-4cf0b.firebaseapp.com',
   ],

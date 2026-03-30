@@ -31,6 +31,23 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      title: 'Route AI — Plan routes with natural language',
+      meta: [
+        { name: 'description', content: 'Say where you need to go in plain words. AI extracts your stops, optimizes the order, and opens Google Maps with everything pre-filled.' },
+        // Open Graph
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://routeai.tech' },
+        { property: 'og:title', content: 'Route AI — Say where. Go there.' },
+        { property: 'og:description', content: 'Plan multi-stop routes with natural language. AI extracts your stops — Google Maps does the rest.' },
+        { property: 'og:image', content: 'https://routeai.tech/og-image.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        // Twitter Card
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Route AI — Say where. Go there.' },
+        { name: 'twitter:description', content: 'Plan multi-stop routes with natural language. AI extracts your stops — Google Maps does the rest.' },
+        { name: 'twitter:image', content: 'https://routeai.tech/og-image.png' },
+      ],
       link: [
         {
           rel: 'apple-touch-icon',

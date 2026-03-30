@@ -6,7 +6,7 @@ A natural language route planner PWA. The user types or speaks a casual descript
 
 **Core value**: The AI acts as a translator between human language and Google Maps input. Google Maps never has to understand natural language — it just receives clean, structured addresses.
 
-**Live URL**: https://route-ai-4cf0b.web.app
+**Live URL**: https://routeai.tech
 **API URL**: https://route-ai-v42a.onrender.com
 **Repository**: github.com/andrealopezpalomeque/root-ai
 **Client deployment**: Firebase Hosting (`yarn generate` + `firebase deploy`)
@@ -252,7 +252,7 @@ NUXT_PUBLIC_API_BASE_URL=http://localhost:3001
 GEMINI_API_KEY=your_key_here
 PORT=3001
 CLIENT_URL=http://localhost:3000
-# Production CLIENT_URL: https://root-ai.web.app
+# Production CLIENT_URL: https://routeai.tech
 ```
 
 ---
