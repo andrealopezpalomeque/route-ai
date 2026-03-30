@@ -118,6 +118,10 @@ body {
 
   /* --- Hero Headline SVG --- */
 
+  .hero-headline {
+    overflow: hidden;
+  }
+
   .hero-headline__svg {
     width: 100%;
     height: auto;

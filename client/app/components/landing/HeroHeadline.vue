@@ -51,11 +51,12 @@ function measurePathLength(el: SVGTextElement): number {
 }
 
 onMounted(() => {
-  nextTick(() => {
-    const svg = svgEl.value
-    const el1 = line1El.value
-    const el2 = line2El.value
-    if (!svg || !el1 || !el2) return
+  const measure = () => {
+    nextTick(() => {
+      const svg = svgEl.value
+      const el1 = line1El.value
+      const el2 = line2El.value
+      if (!svg || !el1 || !el2) return
 
     // Tighten viewBox to actual text bounds (text is invisible at this point)
     const b1 = el1.getBBox()
@@ -84,5 +85,12 @@ onMounted(() => {
     // line2: 150ms delay + 1.8s stroke + 0.4s fill = 2.35s
     setTimeout(() => emit('complete'), 2400)
   })
+  }
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(measure)
+  } else {
+    measure()
+  }
 })
 </script>
