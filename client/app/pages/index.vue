@@ -32,9 +32,9 @@
       <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(0,255,178,0.06)_0%,transparent_60%)]" />
       <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(0,150,255,0.04)_0%,transparent_50%)]" />
 
-      <div class="relative mx-auto flex max-w-5xl flex-col items-center gap-16 md:flex-row md:items-start md:gap-20">
+      <div class="relative mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-0">
         <!-- Left: copy -->
-        <div class="flex-1 text-center md:text-left">
+        <div class="w-full text-center md:w-[55%] md:text-left">
           <h1
             class="font-display text-[clamp(2.8rem,7vw,5rem)] font-extrabold leading-[0.95] tracking-tight opacity-0"
             style="animation: fade-in-up 0.8s ease-out 0.1s forwards;"
@@ -69,48 +69,12 @@
           </div>
         </div>
 
-        <!-- Right: phone mockup -->
+        <!-- Right: route animation -->
         <div
-          class="flex-shrink-0 opacity-0"
+          class="h-[250px] w-full opacity-0 md:h-auto md:w-[45%] md:self-stretch"
           style="animation: fade-in-up 0.8s ease-out 0.4s forwards;"
         >
-          <div
-            class="relative mx-auto w-[260px] md:w-[280px]"
-            style="animation: phone-float 6s ease-in-out infinite;"
-          >
-            <!-- Phone frame -->
-            <div class="rounded-[2.5rem] border border-border/60 bg-[#111117] p-3 shadow-[0_0_80px_rgba(0,255,178,0.06),0_20px_60px_rgba(0,0,0,0.5)]">
-              <!-- Notch -->
-              <div class="mx-auto mb-3 h-5 w-24 rounded-full bg-bg" />
-              <!-- Screen -->
-              <div class="overflow-hidden rounded-[1.8rem] bg-bg p-4">
-                <!-- Mini app UI -->
-                <div class="mb-3 text-center font-display text-sm font-bold tracking-tight">
-                  route<span class="text-accent">AI</span>
-                </div>
-                <div class="mb-4 rounded-xl border border-border bg-surface p-3">
-                  <p class="font-mono text-[10px] leading-relaxed text-text-secondary">
-                    I need to go to the pharmacy on Belgrano, then pick up my friend near the plaza<span class="inline-block w-[2px] bg-accent" style="height: 12px; animation: cursor-blink 1s step-end infinite;" />
-                  </p>
-                </div>
-                <!-- Stops preview -->
-                <div class="space-y-2">
-                  <div class="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2">
-                    <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[9px] font-bold text-accent">1</span>
-                    <span class="font-mono text-[9px] text-text-secondary">Farmacia Belgrano</span>
-                  </div>
-                  <div class="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2">
-                    <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[9px] font-bold text-accent">2</span>
-                    <span class="font-mono text-[9px] text-text-secondary">Plaza San Martín</span>
-                  </div>
-                </div>
-                <!-- Maps button preview -->
-                <div class="mt-3 rounded-lg bg-[#1a73e8] py-2 text-center font-display text-[10px] font-bold uppercase tracking-wider text-white">
-                  Open in Google Maps
-                </div>
-              </div>
-            </div>
-          </div>
+          <RouteAnimation />
         </div>
       </div>
     </section>

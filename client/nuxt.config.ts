@@ -74,6 +74,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
+      globPatterns: ['**/*.{html,js,css,json,webmanifest}'],
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
