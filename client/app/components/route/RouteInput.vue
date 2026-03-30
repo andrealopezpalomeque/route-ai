@@ -9,7 +9,7 @@
       :disabled="store.loading"
       placeholder="I need to go to the pharmacy on Belgrano, then the supermarket on San Juan, and pick up my friend near the plaza. About an hour."
       rows="5"
-      class="h-[130px] w-full resize-none rounded-[10px] border border-white/10 bg-black/40 px-4 py-4 font-mono text-[0.85rem] leading-[1.7] text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent/40 disabled:opacity-40"
+      class="h-[130px] w-full resize-none rounded-[10px] border border-white/10 bg-black/40 px-4 py-4 font-mono text-base leading-[1.7] text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent/40 disabled:opacity-40"
       @keydown.meta.enter="submit"
       @keydown.ctrl.enter="submit"
     />
