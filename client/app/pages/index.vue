@@ -221,8 +221,17 @@
     <!-- FOOTER -->
     <footer class="border-t border-border px-6 py-12">
       <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
+        <p class="font-mono text-xs text-text-secondary">
+          {{ $t('footer.builtBy') }}
+          <a
+            href="https://github.com/andrealopezpalomeque"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent hover:underline"
+          >{{ $t('footer.author') }}</a>
+        </p>
         <p class="font-mono text-xs text-text-muted">
-          © 2026 Route AI. Todos los derechos reservados.
+          {{ $t('footer.copyright', { year: new Date().getFullYear() }) }}
         </p>
       </div>
     </footer>
