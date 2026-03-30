@@ -1,7 +1,7 @@
 <template>
   <div v-if="store.stops.length" class="flex flex-col gap-2.5">
     <h2 class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-accent">
-      Extracted Stops
+      {{ $t('app.extractedStops') }}
     </h2>
     <div class="flex flex-col gap-2.5">
       <div
@@ -16,7 +16,7 @@
         <div class="flex flex-1 flex-col">
           <span class="font-display text-[0.9rem] font-semibold text-text-primary">{{ stop.label }}</span>
           <span class="mt-0.5 font-mono text-[0.72rem] leading-snug text-text-muted">{{ stop.address }}</span>
-          <span class="mt-1 font-mono text-[0.65rem] text-accent">✓ Ready</span>
+          <span class="mt-1 font-mono text-[0.65rem] text-accent">✓ {{ $t('app.ready') }}</span>
         </div>
       </div>
     </div>
@@ -24,5 +24,6 @@
 </template>
 
 <script setup lang="ts">
+const { t: $t } = useI18n()
 const store = useRouteStore()
 </script>

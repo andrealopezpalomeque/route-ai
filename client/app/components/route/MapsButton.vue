@@ -4,11 +4,12 @@
     class="mt-3 w-full rounded-[10px] bg-accent-maps px-4 py-4 font-display text-[0.95rem] font-bold tracking-wide text-white transition-all hover:translate-y-[-1px] hover:bg-[#2a83f8]"
     @click="openMaps"
   >
-    Open in Google Maps ↗
+    {{ $t('app.openMaps') }}
   </button>
 </template>
 
 <script setup lang="ts">
+const { t: $t } = useI18n()
 const store = useRouteStore()
 
 function openMaps() {

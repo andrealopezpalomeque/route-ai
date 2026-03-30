@@ -18,7 +18,7 @@ export const useRouteStore = defineStore('route', {
 
       this.loading = true
       this.error = ''
-      this.status = 'Parsing your route...'
+      this.status = ''
       this.stops = []
       this.timeNote = ''
       this.mapsUrl = ''
@@ -34,9 +34,9 @@ export const useRouteStore = defineStore('route', {
         const { buildUrl } = useMapsUrl()
         this.mapsUrl = buildUrl(result.stops, coords)
 
-        this.status = `${result.stops.length} stop${result.stops.length === 1 ? '' : 's'} found`
+        this.status = 'done'
       } catch (e) {
-        this.error = e instanceof Error ? e.message : 'Something went wrong'
+        this.error = e instanceof Error ? e.message : ''
         this.status = ''
       } finally {
         this.loading = false

@@ -195,6 +195,8 @@ Include city/state if mentioned or implied.
 Do not include the user's home/origin unless explicitly named.
 ```
 
+**Multilingual support**: Gemini prompt supports multilingual input — label returned in the user's language, address always in a Google Maps-compatible format.
+
 ### Future: Claude API swap
 When switching from Gemini to Claude, only `server/src/routes/parseRoute.ts` changes.
 The system prompt, response shape, and everything else stays identical.
@@ -345,14 +347,15 @@ firebase deploy
 - [x] Deploy server to Render
 - [x] Share link with first users
 
-### Phase 2 — PWA Polish
+### Phase 2 — PWA Polish (complete)
 - [x] PWA icons (192 + 512)
 - [x] Offline fallback page
-- [ ] Test "Add to Home Screen" on iOS + Android
+- [x] Test "Add to Home Screen" on iOS + Android
 
-### Phase 3 — Voice Input
-- [ ] Web Speech API in RouteInput
-- [ ] Mic button, transcript feeds existing parse flow
+### Phase 3 — Voice Input (complete)
+- [x] Web Speech API in RouteInput (useVoiceInput composable)
+- [x] Mic button, transcript feeds existing parse flow
+- Voice input uses Web Speech API — language follows i18n locale setting (en-US / es-AR)
 
 ### Phase 4 — History (optional)
 - [ ] Firebase Auth (Google sign-in)

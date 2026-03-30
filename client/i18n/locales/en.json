@@ -31,6 +31,27 @@
     "iphoneStep2": "Tap the Share button (box with arrow)",
     "iphoneStep3": "Tap \"Add to Home Screen\" → \"Add\""
   },
+  "app": {
+    "subtitle": "natural language → Google Maps",
+    "label": "Describe your trip",
+    "placeholder": "I need to go to the pharmacy on Belgrano, then the supermarket on San Juan, and pick up my friend near the plaza. About an hour.",
+    "submit": "Plan My Route →",
+    "submitting": "Processing...",
+    "statusParsing": "Parsing your route...",
+    "statusStops": "{count} stop found | {count} stops found",
+    "extractedStops": "Extracted Stops",
+    "ready": "Ready",
+    "timeNote": "Time constraint noted:",
+    "openMaps": "Open in Google Maps ↗",
+    "detectingLocation": "Detecting location...",
+    "enableLocation": "Enable location for better results",
+    "locationUnavailable": "⚠ Location unavailable — results may be less accurate",
+    "errorFallback": "Something went wrong",
+    "listening": "Listening...",
+    "voiceNotSupported": "Voice not supported on this browser",
+    "voiceError": "Could not hear you — try again",
+    "back": "Back"
+  },
   "footer": {
     "builtBy": "Built by",
     "author": "Andrea López Palomeque",

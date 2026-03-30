@@ -31,6 +31,27 @@
     "iphoneStep2": "Tocá el botón Compartir (cuadrado con flecha)",
     "iphoneStep3": "Tocá \"Agregar a inicio\" → \"Agregar\""
   },
+  "app": {
+    "subtitle": "lenguaje natural → Google Maps",
+    "label": "Describí tu recorrido",
+    "placeholder": "Necesito ir a la farmacia de Belgrano, después al súper de San Juan, y pasar a buscar a mi amiga cerca de la plaza. Como una hora.",
+    "submit": "Planear mi ruta →",
+    "submitting": "Procesando...",
+    "statusParsing": "Analizando tu ruta...",
+    "statusStops": "{count} parada encontrada | {count} paradas encontradas",
+    "extractedStops": "Paradas extraídas",
+    "ready": "Listo",
+    "timeNote": "Restricción de tiempo:",
+    "openMaps": "Abrir en Google Maps ↗",
+    "detectingLocation": "Detectando ubicación...",
+    "enableLocation": "Activar ubicación para mejores resultados",
+    "locationUnavailable": "⚠ Ubicación no disponible — los resultados pueden ser menos precisos",
+    "errorFallback": "Algo salió mal",
+    "listening": "Escuchando...",
+    "voiceNotSupported": "Voz no disponible en este navegador",
+    "voiceError": "No te escuché — intentá de nuevo",
+    "back": "Volver"
+  },
   "footer": {
     "builtBy": "Hecho por",
     "author": "Andrea López Palomeque",

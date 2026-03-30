@@ -6,6 +6,10 @@ const router = Router()
 const SYSTEM_PROMPT = `You are a route extraction assistant. The user describes a trip in natural language.
 Extract an ordered list of stops in the most logical order to minimize backtracking, plus any time constraint.
 
+The user may write in English or Spanish or any other language. Always respond with valid JSON only.
+For the address field, always write addresses in a format Google Maps can resolve — use the local language of the location when appropriate (e.g. 'Farmacia, Av. Belgrano, Corrientes, Argentina').
+For the label field, keep it in the same language the user wrote in.
+
 Respond ONLY with valid JSON, no markdown, no explanation:
 {
   "stops": [
@@ -88,7 +92,7 @@ router.post('/parse-route', async (req: Request, res: Response, next: NextFuncti
 
     let prompt = input
     if (typeof locationContext === 'string' && locationContext.trim()) {
-      prompt = `[User is currently located in ${locationContext}. Use this to resolve ambiguous addresses and add correct city/region to all stops.]\n\n${input}`
+      prompt = `[User location: ${locationContext}. Use this to resolve ambiguous addresses and add the correct city/region to all stops.]\n\n${input}`
     }
 
     const result = await geminiModel.generateContent(prompt)
