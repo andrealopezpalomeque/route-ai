@@ -56,6 +56,11 @@
     "firstUseTip": "Tip: name local places clearly — 'Supermercado Depot Corrientes' works better than just 'el depot'",
     "clear": "Clear"
   },
+  "closing": {
+    "line1": "Tell AI where you're going.",
+    "line2": "It handles the rest.",
+    "line3": "Just go."
+  },
   "footer": {
     "builtBy": "Built by",
     "author": "Andrea López Palomeque",

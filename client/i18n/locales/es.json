@@ -56,6 +56,11 @@
     "firstUseTip": "Tip: nombrá los lugares con claridad — 'Supermercado Depot Corrientes' funciona mejor que solo 'el depot'",
     "clear": "Limpiar"
   },
+  "closing": {
+    "line1": "Decile a la IA a dónde vas.",
+    "line2": "Ella se encarga del resto.",
+    "line3": "Solo andá."
+  },
   "footer": {
     "builtBy": "Hecho por",
     "author": "Andrea López Palomeque",

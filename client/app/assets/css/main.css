@@ -45,6 +45,10 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
+/* ========================================
+   Keyframes
+   ======================================== */
+
 @keyframes pulse-accent {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.2; }
@@ -93,8 +97,178 @@ body {
   50% { opacity: 0; }
 }
 
+@keyframes stroke-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-in {
+  to {
+    fill: var(--fill-color);
+    stroke: transparent;
+  }
+}
+
+/* ========================================
+   Component Styles
+   ======================================== */
+
+@layer components {
+
+  /* --- Hero Headline SVG --- */
+
+  .hero-headline__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-headline__text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 80px;
+    fill: transparent;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    letter-spacing: -0.02em;
+    stroke-dasharray: var(--dash, 3000);
+    stroke-dashoffset: var(--dash, 3000);
+    --fill-color: var(--text-primary);
+  }
+
+  .hero-headline__text--second {
+    --fill-color: var(--accent);
+  }
+
+  .hero-headline__text--animate {
+    animation:
+      stroke-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+      fill-in 0.4s ease 1.8s forwards;
+  }
+
+  .hero-headline__text--second.hero-headline__text--animate {
+    animation:
+      stroke-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards,
+      fill-in 0.4s ease 1.95s forwards;
+  }
+
+  /* --- Hero Sub-elements --- */
+
+  .hero-sub {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-sub--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-ctas {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+
+  .hero-ctas--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Scroll Reveal (base) --- */
+
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-reveal--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- How It Works: step slide from left --- */
+
+  .step-slide {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .step-slide--visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* --- Install: card flip --- */
+
+  .install-card {
+    opacity: 0;
+    transform: rotateX(8deg);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .install-card--visible {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+
+  /* --- Closing: line reveal --- */
+
+  .closing-line {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .closing-line--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Section Backgrounds --- */
+
+  .section-hero { background-color: #0a0a0f; }
+  .section-how { background-color: #0d0d14; }
+  .section-install { background-color: #0a0a0f; }
+  .section-closing { background-color: #080808; }
+  .section-footer { background-color: #050505; }
+
+  /* --- Typography Scale --- */
+
+  .headline-section {
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+  }
+}
+
 @layer utilities {
   .fill-mode-forwards {
     animation-fill-mode: forwards;
+  }
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
