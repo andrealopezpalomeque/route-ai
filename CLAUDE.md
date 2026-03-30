@@ -346,8 +346,8 @@ firebase deploy
 - [x] Share link with first users
 
 ### Phase 2 — PWA Polish
-- [ ] PWA icons (192 + 512)
-- [ ] Offline fallback page
+- [x] PWA icons (192 + 512)
+- [x] Offline fallback page
 - [ ] Test "Add to Home Screen" on iOS + Android
 
 ### Phase 3 — Voice Input

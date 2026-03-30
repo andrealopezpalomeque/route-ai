@@ -1,7 +1,10 @@
 {
   "name": "routeai",
   "private": true,
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "dev:client": "yarn workspace routeai-client dev",
     "dev:server": "yarn workspace routeai-server dev",
@@ -11,6 +14,7 @@
     "deploy:server": "echo 'Server deploys automatically via Render on git push'"
   },
   "devDependencies": {
+    "canvas": "^3.2.2",
     "concurrently": "^9.1.2"
   }
 }

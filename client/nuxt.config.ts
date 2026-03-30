@@ -21,6 +21,10 @@ export default defineNuxtConfig({
     head: {
       link: [
         {
+          rel: 'apple-touch-icon',
+          href: '/icon-192.png',
+        },
+        {
           rel: 'preconnect',
           href: 'https://fonts.googleapis.com',
         },
@@ -45,8 +49,8 @@ export default defineNuxtConfig({
 
   pwa: {
     manifest: {
-      name: 'RouteAI',
-      short_name: 'RouteAI',
+      name: 'Route AI',
+      short_name: 'Route AI',
       description: 'Plan routes with natural language',
       theme_color: '#0a0a0f',
       background_color: '#0a0a0f',
@@ -58,6 +62,16 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'google-fonts',
+            expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+          },
+        },
+      ],
     },
   },
 
