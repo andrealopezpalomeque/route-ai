@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "logo": "Route AI",
+    "tryIt": "Probalo"
+  },
+  "hero": {
+    "headline": "Tu ruta.",
+    "headlineAccent": "En tus palabras.",
+    "subheading": "Escribí a dónde necesitás ir — naturalmente. La IA organiza las paradas y abre Google Maps con todo listo.",
+    "cta": "Probalo ahora",
+    "ctaInstall": "Agregar al celular"
+  },
+  "howItWorks": {
+    "label": "Cómo funciona",
+    "step1Title": "Escribí naturalmente",
+    "step1Desc": "\"Necesito ir a la farmacia de Belgrano, después pasar a buscar a mi amiga cerca de la plaza\"",
+    "step2Title": "La IA extrae y ordena",
+    "step2Desc": "Las paradas se identifican, las direcciones se resuelven y la ruta se optimiza para evitar idas y vueltas.",
+    "step3Title": "Google Maps se abre",
+    "step3Desc": "Todo pre-cargado — origen, paradas, destino. Solo dale a Iniciar."
+  },
+  "install": {
+    "headline": "Sin app store",
+    "subheading": "Agregá Route AI a tu pantalla de inicio en segundos.",
+    "androidLabel": "Android",
+    "androidStep1": "Abrí route-ai-4cf0b.web.app en Chrome",
+    "androidStep2": "Tocá el menú (tres puntos) → \"Agregar a pantalla de inicio\"",
+    "androidStep3": "Tocá \"Agregar\" — listo",
+    "iphoneLabel": "iPhone",
+    "iphoneStep1": "Abrí route-ai-4cf0b.web.app en Safari",
+    "iphoneStep2": "Tocá el botón Compartir (cuadrado con flecha)",
+    "iphoneStep3": "Tocá \"Agregar a inicio\" → \"Agregar\""
+  },
+  "footer": {
+    "builtBy": "Hecho por",
+    "author": "Andrea López Palomeque",
+    "copyright": "© {year} Route AI. Todos los derechos reservados."
+  }
+}

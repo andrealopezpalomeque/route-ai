@@ -9,7 +9,19 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
+    '@vueuse/nuxt',
+    '@nuxtjs/i18n',
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', file: 'en.json', name: 'EN' },
+      { code: 'es', file: 'es.json', name: 'ES' },
+    ],
+    defaultLocale: 'en',
+    langDir: '../i18n/locales',
+    strategy: 'no_prefix',
+  },
 
   components: [
     { path: '~/components', pathPrefix: false },

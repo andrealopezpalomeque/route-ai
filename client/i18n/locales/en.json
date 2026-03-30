@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "logo": "Route AI",
+    "tryIt": "Try it now"
+  },
+  "hero": {
+    "headline": "Your route.",
+    "headlineAccent": "In plain words.",
+    "subheading": "Type where you need to go — naturally. AI figures out the best order and opens Google Maps with everything pre-filled.",
+    "cta": "Try it now",
+    "ctaInstall": "Add to phone"
+  },
+  "howItWorks": {
+    "label": "How it works",
+    "step1Title": "Type naturally",
+    "step1Desc": "\"I need to go to the pharmacy on Belgrano, then pick up my friend near the plaza\"",
+    "step2Title": "AI extracts & orders",
+    "step2Desc": "Stops are identified, addresses resolved, and the route is optimized to minimize backtracking.",
+    "step3Title": "Google Maps opens",
+    "step3Desc": "Everything is pre-filled — origin, stops, destination. Just hit Start."
+  },
+  "install": {
+    "headline": "No app store needed",
+    "subheading": "Add Route AI to your home screen in seconds.",
+    "androidLabel": "Android",
+    "androidStep1": "Open route-ai-4cf0b.web.app in Chrome",
+    "androidStep2": "Tap the menu (three dots) → \"Add to Home Screen\"",
+    "androidStep3": "Tap \"Add\" — done",
+    "iphoneLabel": "iPhone",
+    "iphoneStep1": "Open route-ai-4cf0b.web.app in Safari",
+    "iphoneStep2": "Tap the Share button (box with arrow)",
+    "iphoneStep3": "Tap \"Add to Home Screen\" → \"Add\""
+  },
+  "footer": {
+    "builtBy": "Built by",
+    "author": "Andrea López Palomeque",
+    "copyright": "© {year} Route AI. All rights reserved."
+  }
+}
