@@ -54,13 +54,13 @@
           >
             <NuxtLink
               to="/app"
-              class="group relative inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 font-display text-sm font-bold uppercase tracking-wider text-bg transition-all duration-200 hover:shadow-[0_0_32px_rgba(0,255,178,0.3)]"
+              class="group relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-7 py-3 font-display text-sm font-bold uppercase tracking-wider text-bg transition-all duration-200 hover:shadow-[0_0_32px_rgba(0,255,178,0.3)] sm:w-auto sm:min-w-[180px]"
             >
               {{ $t('hero.cta') }}
               <span class="inline-block transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
             </NuxtLink>
             <button
-              class="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3 font-display text-sm font-bold uppercase tracking-wider text-text-secondary transition-all duration-200 hover:border-text-muted hover:text-text-primary"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border px-7 py-3 font-display text-sm font-bold uppercase tracking-wider text-text-secondary transition-all duration-200 hover:border-text-muted hover:text-text-primary sm:w-auto sm:min-w-[180px]"
               @click="scrollToInstall"
             >
               {{ $t('hero.ctaInstall') }}
@@ -185,15 +185,6 @@
     <!-- FOOTER -->
     <footer class="border-t border-border px-6 py-12">
       <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
-        <p class="font-mono text-xs text-text-secondary">
-          {{ $t('footer.builtBy') }}
-          <a
-            href="https://github.com/andrealopezpalomeque"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-accent hover:underline"
-          >{{ $t('footer.author') }}</a>
-        </p>
         <p class="font-mono text-xs text-text-muted">
           {{ $t('footer.copyright', { year: new Date().getFullYear() }) }}
         </p>
