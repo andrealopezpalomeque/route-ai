@@ -6,7 +6,9 @@
     "dev:client": "yarn workspace routeai-client dev",
     "dev:server": "yarn workspace routeai-server dev",
     "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
-    "install:all": "yarn install"
+    "install:all": "yarn install",
+    "deploy:client": "yarn workspace routeai-client deploy",
+    "deploy:server": "echo 'Server deploys automatically via Render on git push'"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

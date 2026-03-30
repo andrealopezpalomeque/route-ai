@@ -6,10 +6,11 @@ A natural language route planner PWA. The user types or speaks a casual descript
 
 **Core value**: The AI acts as a translator between human language and Google Maps input. Google Maps never has to understand natural language — it just receives clean, structured addresses.
 
-**Live URL**: TBD
-**Repository**: TBD (github.com/andrealopezpalomeque/root-ai)
+**Live URL**: https://route-ai-4cf0b.web.app
+**API URL**: https://route-ai-v42a.onrender.com
+**Repository**: github.com/andrealopezpalomeque/root-ai
 **Client deployment**: Firebase Hosting (`yarn generate` + `firebase deploy`)
-**Server deployment**: Render (Express + Node)
+**Server deployment**: Render (Express + Node) — auto-deploys on git push
 
 ---
 
@@ -340,9 +341,9 @@ firebase deploy
 - [x] End-to-end test locally
 - [x] Geolocation: current position as Maps origin
 - [x] Geolocation: location context sent to Gemini for accurate address resolution
-- [ ] Deploy client to Firebase
-- [ ] Deploy server to Render
-- [ ] Share link with first users
+- [x] Deploy client to Firebase
+- [x] Deploy server to Render
+- [x] Share link with first users
 
 ### Phase 2 — PWA Polish
 - [ ] PWA icons (192 + 512)

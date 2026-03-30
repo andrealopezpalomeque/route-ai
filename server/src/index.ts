@@ -11,7 +11,12 @@ const port = process.env.PORT || 3001
 const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000'
 
 app.use(cors({
-  origin: [clientUrl, 'http://localhost:3000'],
+  origin: [
+    clientUrl,
+    'http://localhost:3000',
+    'https://route-ai-4cf0b.web.app',
+    'https://route-ai-4cf0b.firebaseapp.com',
+  ],
 }))
 app.use(express.json())
 
